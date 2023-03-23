@@ -20,7 +20,7 @@ class BaseNavigationController: UINavigationController {
     }
     
     func configurateNavigationBar() {
-        let titleStyle: [NSAttributedString.Key: Any] = [.foregroundColor: AppColors.white, .font: UIFont(name: "Ubuntu-Medium", size: 14)!]
+        let titleStyle: [NSAttributedString.Key: Any] = [.foregroundColor: AppColors.white]
         
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
