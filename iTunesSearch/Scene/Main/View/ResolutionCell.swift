@@ -11,6 +11,7 @@ class ResolutionCell: UITableViewCell {
     
     static let identifier = "resolutionCell"
     
+    // MARK: - UI Components
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -36,46 +37,13 @@ class ResolutionCell: UITableViewCell {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isUserInteractionEnabled = true
-        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = false
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
-//    var productCategory: CategoryResponseModel? {
-//        didSet {
-//            collectionView.reloadData()
-//        }
-//    }
-    
-//    var brandListItem: BrandListItem? {
-//        didSet {
-//            collectionView.reloadData()
-//        }
-//    }
-    
-//    var selectionViewType: SegmentCellType? {
-//        didSet {
-//            setupUI()
-//        }
-//    }
-//
-//    var segmentValue = ""
-//    var mainTitle = ["all".localized, "popular".localized, "new".localized]
-//    var orderTitle = ["ongoing_orders".localized, "completed_orders".localized]
-//    var notificationUserTitle = ["all_of".localized, "orders".localized, "my_campaigns".localized]
-//    var notificationBrandTitle = ["all_of".localized, "demands_title".localized, "my_campaigns".localized]
-//
-//    var selectedIndex = 0
-//    weak var delegate: SelectionViewDelegate?
-//    weak var indexDelegate: SelectionViewIndexDelegate?
-
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//        setupUI()
-//    }
-    
+    // MARK: - Initialize Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -85,17 +53,13 @@ class ResolutionCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - Setup UI
     private func setupUI() {
         self.contentView.backgroundColor = AppColors.backgroundColor
-//        switch selectionViewType {
-//        case.notification:
-//            topLineView.isHidden = false
-//        default:
-//            topLineView.isHidden = true
-//        }
         addViews()
         configureConstraints()
-        //configureCollectionCell()
+        configureCollectionCell()
     }
     
     private func addViews() {
@@ -103,15 +67,8 @@ class ResolutionCell: UITableViewCell {
         containerView.addSubviews(titleLabel, collectionView)
     }
     
-//    func setSelected(_ index: Int) {
-//        selectedIndex = index
-//    }
-    
     private func configureConstraints() {
-        containerView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor).isActive = true
-        containerView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        containerView.pinToEdgesOf(view: contentView)
         
         titleLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
         titleLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
@@ -124,132 +81,62 @@ class ResolutionCell: UITableViewCell {
         collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
+    // MARK: - Delegates
     private func configureCollectionCell() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        //collectionView.register(SelectionCollectionCell.self)
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    
 }
 
+// MARK: - CollectionView Extensions
 extension ResolutionCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 30
-//        switch selectionViewType {
-//        case .main:
-//            return mainTitle.count
-//        case .brandProfile:
-//            return brandListItem?.productCategories?.count ?? 0
-//        case .order:
-//            return orderTitle.count
-//        case .notification:
-//            return notificationUserTitle.count
-//        case .categoryDetail:
-//            return productCategory?.items?.count ?? 0
-//        default:
-//            return 0
-//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SelectionCollectionCell.self), for: indexPath) as? SelectionCollectionCell else { return UICollectionViewCell() }
-//        switch selectionViewType {
-//        case .main:
-//            segmentValue = mainTitle[indexPath.row]
-//            cell.bottomLineView.isHidden = true
-//        case .brandProfile:
-//            segmentValue = brandListItem?.productCategories?[indexPath.row].name ?? ""
-//        case .order:
-//            segmentValue = orderTitle[indexPath.row]
-//        case .notification:
-//            if UserManager.shared.userType == 1 {
-//                segmentValue = notificationUserTitle[indexPath.row]
-//            } else if UserManager.shared.userType == 2 {
-//                segmentValue = notificationBrandTitle[indexPath.row]
-//            }
-//        case .categoryDetail:
-//            segmentValue = productCategory?.items?[indexPath.row].name ?? ""
-//        default:
-//            break
-//        }
-//        cell.titleLabel.text = segmentValue
-//
-//        if selectedIndex == indexPath.item {
-//            cell.bottomLineView.isHidden = false
-//            cell.titleLabel.font = AppFonts.SfProDisplayRegular16
-//            cell.titleLabel.textColor = AppColors.primaryDark
-//        } else {
-//            cell.bottomLineView.isHidden = true
-//            cell.titleLabel.textColor = AppColors.primaryDark70
-//            cell.titleLabel.font = AppFonts.SfProDisplayRegular14
-//        }
-        let cell = UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
+        cell.fillImageCell(title: "IMG-924")
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.selectedIndex = indexPath.item
-//        var categoryId: Int? = 0
-//        self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
-//        self.collectionView.scrollToItem(at: indexPath, at: [.centeredVertically], animated: true)
-//        self.collectionView.reloadData()
-//        switch selectionViewType {
-//        case .main:
-//            delegate?.didTappedSelectedType(typeId: selectedIndex + 1)
-//        case .order:
-//            delegate?.didTappedSelectedType(typeId: selectedIndex + 1)
-//        case .brandProfile:
-//            categoryId = brandListItem?.productCategories?[indexPath.row].id
-//            indexDelegate?.didTapped(indexPath.item)
-//            delegate?.didTappedSelectedType(typeId: categoryId)
-//        case .notification:
-//            delegate?.didTappedSelectedType(typeId: selectedIndex)
-//        case .categoryDetail:
-//            categoryId = productCategory?.items?[indexPath.row].id
-//            delegate?.didTappedSelectedType(typeId: categoryId)
-//        default:
-//            break
-//        }
+        debugPrint(indexPath.row)
+        //        self.selectedIndex = indexPath.item
+        //        var categoryId: Int? = 0
+        //        self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+        //        self.collectionView.scrollToItem(at: indexPath, at: [.centeredVertically], animated: true)
+        //        self.collectionView.reloadData()
+        //        switch selectionViewType {
+        //        case .main:
+        //            delegate?.didTappedSelectedType(typeId: selectedIndex + 1)
+        //        case .order:
+        //            delegate?.didTappedSelectedType(typeId: selectedIndex + 1)
+        //        case .brandProfile:
+        //            categoryId = brandListItem?.productCategories?[indexPath.row].id
+        //            indexDelegate?.didTapped(indexPath.item)
+        //            delegate?.didTappedSelectedType(typeId: categoryId)
+        //        case .notification:
+        //            delegate?.didTappedSelectedType(typeId: selectedIndex)
+        //        case .categoryDetail:
+        //            categoryId = productCategory?.items?[indexPath.row].id
+        //            delegate?.didTappedSelectedType(typeId: categoryId)
+        //        default:
+        //            break
+        //        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let label = UILabel(frame: CGRect.zero)
-//        let height = collectionView.frame.height
-//        switch selectionViewType {
-//        case .main:
-//            let width = (collectionView.frame.width - 32) / 3
-//            return CGSize(width: width, height: height)
-//        case .brandProfile:
-//            segmentValue = brandListItem?.productCategories?[indexPath.row].name ?? ""
-//        case .order:
-//            segmentValue = orderTitle[indexPath.row]
-//        case .notification:
-//            let width = (collectionView.frame.width - 32) / 3
-//            return CGSize(width: width, height: height)
-//        case .categoryDetail:
-//            segmentValue = productCategory?.items?[indexPath.row].name ?? ""
-//        default:
-//            break
-//        }
-//        label.text =  segmentValue
-//        label.sizeToFit()
-//        return CGSize(width: label.frame.width, height: height)
-        
-        //        let label = UILabel(frame: CGRect.zero)
-        //        let height = collectionView.frame.height
-        //        let width = (collectionView.frame.width - 32) / 3
-                return CGSize(width: 300, height: 200)
+        //let height = collectionView.frame.height
+        //let width = (collectionView.frame.width - 32) / 3
+        return CGSize(width: 100, height: 200)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 16
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

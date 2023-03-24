@@ -25,11 +25,11 @@ class MainVC: BaseViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = AppColors.backgroundColor
-        tableView.allowsSelection = true
+        tableView.allowsSelection = false
         tableView.estimatedRowHeight = 0
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .singleLine
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -46,10 +46,7 @@ class MainVC: BaseViewController {
     private func setupUI() {
         view.addSubview(tableView)
         tableView.backgroundColor = AppColors.backgroundColor
-        tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        tableView.pinToEdgesOf(view: view)
     }
     
     private func configureSearchBar() {
@@ -58,6 +55,8 @@ class MainVC: BaseViewController {
         
         searchBar.delegate = self
         
+        searchBar.searchTextField.textColor = .white
+        searchBar.tintColor = .white
         searchBar.placeholder = "Arama"
     }
     
@@ -72,7 +71,6 @@ class MainVC: BaseViewController {
 }
 
 // MARK: - TableView Extensions
-
 extension MainVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
