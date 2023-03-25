@@ -5,24 +5,44 @@
 //  Created by İlkay Sever on 24.03.2023.
 //
 
+
+// MARK: - SearchResponseModel
 struct SearchResponseModel: Codable {
-    
-    var items: [City]?
-    
-    enum CodingKeys: String, CodingKey {
-        case items
-    }
-    
+    var resultCount: Int?
+    var results: [Results]?
 }
 
-struct City: Codable {
+// MARK: - Result
+struct Results: Codable {
+    var screenshotUrls: [String]?
+    var artistViewURL: String?
+    var supportedDevices: [String]?
+    var releaseNotes: String?
+    var artistID: Int?
+    var artistName: String?
+    var genres: [String]?
+    var price: Int?
+    var description: String?
+    var trackID: Int?
+    var trackName: String?
+    var sellerName: String?
+    var currency: String?
+    var fileSizeBytes: String?
     
-    var id: Int?
-    var name: String?
-        
     enum CodingKeys: String, CodingKey {
-        case id
-        case name
+        case screenshotUrls
+        case artistViewURL = "artistViewUrl"
+        case supportedDevices
+        case releaseNotes
+        case artistID = "artistId"
+        case artistName
+        case genres
+        case price
+        case description
+        case trackID = "trackId"
+        case trackName
+        case sellerName
+        case currency
+        case fileSizeBytes
     }
-    
 }

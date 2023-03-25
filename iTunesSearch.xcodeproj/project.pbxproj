@@ -18,8 +18,6 @@
 		6B62AC1F29CCEDA900D090D4 /* LoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B62AC1D29CCEDA900D090D4 /* LoadingVC.swift */; };
 		6B62AC2029CCEDA900D090D4 /* LoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B62AC1E29CCEDA900D090D4 /* LoadingVC.xib */; };
 		6B62AC2229CCEED400D090D4 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B62AC2129CCEED400D090D4 /* BaseNavigationController.swift */; };
-		6B62AC2529CCEF6300D090D4 /* DenemeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B62AC2329CCEF6300D090D4 /* DenemeVC.swift */; };
-		6B62AC2629CCEF6300D090D4 /* DenemeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B62AC2429CCEF6300D090D4 /* DenemeVC.xib */; };
 		6B62AC2A29CCF03F00D090D4 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B62AC2929CCF03F00D090D4 /* Ubuntu-Medium.ttf */; };
 		6B62AC3029CCF6DF00D090D4 /* CellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B62AC2F29CCF6DF00D090D4 /* CellHelper.swift */; };
 		6B62AC3229CCF73A00D090D4 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B62AC3129CCF73A00D090D4 /* UIView+Ext.swift */; };
@@ -28,6 +26,9 @@
 		6B62AC3D29CDDEFB00D090D4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B62AC3C29CDDEFB00D090D4 /* NetworkManager.swift */; };
 		6BA5197029CDFE10009D143D /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA5196F29CDFE10009D143D /* ImageCollectionViewCell.swift */; };
 		6BA5197629CE10D9009D143D /* SearchResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA5197529CE10D9009D143D /* SearchResponseModel.swift */; };
+		6BA5197829CE146F009D143D /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA5197729CE146F009D143D /* SearchRequest.swift */; };
+		6BA5197A29CF59A4009D143D /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA5197929CF59A4009D143D /* SearchViewModel.swift */; };
+		6BA5197D29CF5D6D009D143D /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA5197C29CF5D6D009D143D /* DetailVC.swift */; };
 		E69181F8E8388737FAA39D3B /* Pods_iTunesSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D8E6788B142F94C393F241A /* Pods_iTunesSearch.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,8 +47,6 @@
 		6B62AC1D29CCEDA900D090D4 /* LoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingVC.swift; sourceTree = "<group>"; };
 		6B62AC1E29CCEDA900D090D4 /* LoadingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingVC.xib; sourceTree = "<group>"; };
 		6B62AC2129CCEED400D090D4 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
-		6B62AC2329CCEF6300D090D4 /* DenemeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenemeVC.swift; sourceTree = "<group>"; };
-		6B62AC2429CCEF6300D090D4 /* DenemeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DenemeVC.xib; sourceTree = "<group>"; };
 		6B62AC2929CCF03F00D090D4 /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Medium.ttf"; sourceTree = "<group>"; };
 		6B62AC2F29CCF6DF00D090D4 /* CellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellHelper.swift; sourceTree = "<group>"; };
 		6B62AC3129CCF73A00D090D4 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -56,6 +55,9 @@
 		6B62AC3C29CDDEFB00D090D4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6BA5196F29CDFE10009D143D /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BA5197529CE10D9009D143D /* SearchResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseModel.swift; sourceTree = "<group>"; };
+		6BA5197729CE146F009D143D /* SearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
+		6BA5197929CF59A4009D143D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		6BA5197C29CF5D6D009D143D /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		7747DCFD376F85FC76666F76 /* Pods-iTunesSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iTunesSearch.release.xcconfig"; path = "Target Support Files/Pods-iTunesSearch/Pods-iTunesSearch.release.xcconfig"; sourceTree = "<group>"; };
 		7D8E6788B142F94C393F241A /* Pods_iTunesSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iTunesSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -136,7 +138,7 @@
 			children = (
 				6B62AC0529CCE6D700D090D4 /* LaunchScreen.storyboard */,
 				6B62AC1629CCEA6D00D090D4 /* Main */,
-				6B62AC2729CCEF6700D090D4 /* Deneme */,
+				6B62AC2729CCEF6700D090D4 /* Detail */,
 				6B62AC1C29CCED6800D090D4 /* Loading */,
 			);
 			path = Scene;
@@ -214,13 +216,12 @@
 			path = Loading;
 			sourceTree = "<group>";
 		};
-		6B62AC2729CCEF6700D090D4 /* Deneme */ = {
+		6B62AC2729CCEF6700D090D4 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				6B62AC2429CCEF6300D090D4 /* DenemeVC.xib */,
-				6B62AC2329CCEF6300D090D4 /* DenemeVC.swift */,
+				6BA5197C29CF5D6D009D143D /* DetailVC.swift */,
 			);
-			path = Deneme;
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		6B62AC2829CCF02E00D090D4 /* Font */ = {
@@ -243,8 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				6B62ABFB29CCE6D700D090D4 /* MainVC.swift */,
-				6B62AC3329CCFD2D00D090D4 /* ResolutionCell.swift */,
-				6BA5196F29CDFE10009D143D /* ImageCollectionViewCell.swift */,
+				6BA5197B29CF5CE1009D143D /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,6 +252,7 @@
 		6B62AC3629CD175500D090D4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6BA5197929CF59A4009D143D /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -276,8 +277,18 @@
 		6B62AC3929CDDED900D090D4 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				6BA5197729CE146F009D143D /* SearchRequest.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		6BA5197B29CF5CE1009D143D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6B62AC3329CCFD2D00D090D4 /* ResolutionCell.swift */,
+				6BA5196F29CDFE10009D143D /* ImageCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,7 +351,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B62AC2629CCEF6300D090D4 /* DenemeVC.xib in Resources */,
 				6B62AC0729CCE6D700D090D4 /* LaunchScreen.storyboard in Resources */,
 				6B62AC2A29CCF03F00D090D4 /* Ubuntu-Medium.ttf in Resources */,
 				6B62AC2029CCEDA900D090D4 /* LoadingVC.xib in Resources */,
@@ -397,11 +407,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BA5197829CE146F009D143D /* SearchRequest.swift in Sources */,
 				6B62AC3B29CDDEEF00D090D4 /* NetworkHelper.swift in Sources */,
 				6B62AC3429CCFD2D00D090D4 /* ResolutionCell.swift in Sources */,
+				6BA5197D29CF5D6D009D143D /* DetailVC.swift in Sources */,
 				6B62AC2229CCEED400D090D4 /* BaseNavigationController.swift in Sources */,
 				6B62AC1829CCED0200D090D4 /* BaseViewController.swift in Sources */,
 				6B62ABFC29CCE6D700D090D4 /* MainVC.swift in Sources */,
+				6BA5197A29CF59A4009D143D /* SearchViewModel.swift in Sources */,
 				6B62ABF829CCE6D700D090D4 /* AppDelegate.swift in Sources */,
 				6BA5197029CDFE10009D143D /* ImageCollectionViewCell.swift in Sources */,
 				6B62AC1B29CCED4E00D090D4 /* AppColors.swift in Sources */,
@@ -411,7 +424,6 @@
 				6B62AC3229CCF73A00D090D4 /* UIView+Ext.swift in Sources */,
 				6B62AC3D29CDDEFB00D090D4 /* NetworkManager.swift in Sources */,
 				6B62AC0229CCE6D700D090D4 /* iTunesSearch.xcdatamodeld in Sources */,
-				6B62AC2529CCEF6300D090D4 /* DenemeVC.swift in Sources */,
 				6B62AC1F29CCEDA900D090D4 /* LoadingVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

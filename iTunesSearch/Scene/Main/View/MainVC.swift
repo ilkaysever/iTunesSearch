@@ -14,10 +14,10 @@ enum Section: Int, CaseIterable {
     case primeResolution
 }
 
-class MainVC: BaseViewController {
+final class MainVC: BaseViewController {
     
     // MARK: - Variables
-    
+    var viewModel = SearchViewModel()
     lazy var searchBar: UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width - 32, height: 0))
     
     
@@ -38,6 +38,7 @@ class MainVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupBinding()
         configureTableView()
         configureSearchBar()
     }
@@ -60,11 +61,39 @@ class MainVC: BaseViewController {
         searchBar.placeholder = "Arama"
     }
     
+    // MARK: - Request
+    private func setupBinding() {
+        DispatchQueue.main.async {
+            self.fetchSearchResults()
+        }
+    }
+    
+    private func fetchSearchResults() {
+        viewModel.fetchSearchResults()
+        viewModel.didSuccess = {
+            self.tableView.reloadData()
+            debugPrint(self.viewModel.searchData)
+        }
+        viewModel.didFailure = { error in
+            debugPrint(error)
+        }
+    }
+    
+    // MARK: - Functions
+    private func openDetailPage() {
+        let vc = DetailVC()
+        let nav = BaseNavigationController(rootViewController: vc)
+        nav.modalTransitionStyle = .crossDissolve
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true)
+    }
+    
     // MARK: - Delegates
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ResolutionCell.self, forCellReuseIdentifier: ResolutionCell.identifier)
+        tableView.register(ResolutionCell.self,
+                           forCellReuseIdentifier: ResolutionCell.identifier)
         tableView.reloadData()
     }
     
@@ -84,6 +113,7 @@ extension MainVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ResolutionCell.identifier, for: indexPath) as? ResolutionCell else { return UITableViewCell() }
+        cell.delegate = self
         switch Section(rawValue: indexPath.section)! {
         case .lowResolution:
             cell.titleLabel.text = "Düşük Çözünürlük"
@@ -110,14 +140,9 @@ extension MainVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        debugPrint(indexPath.row)
-        let vc = DenemeVC()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
 }
 
+// MARK: - UISearchBar Extensions
 extension MainVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -132,4 +157,11 @@ extension MainVC: UISearchBarDelegate {
         debugPrint(text)
     }
     
+}
+
+// MARK: - Custom Extensions
+extension MainVC: ResolutionCellDelegate {
+    func didTappedDetail() {
+        openDetailPage()
+    }
 }

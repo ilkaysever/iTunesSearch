@@ -7,9 +7,15 @@
 
 import UIKit
 
-class ResolutionCell: UITableViewCell {
+protocol ResolutionCellDelegate: AnyObject {
+    func didTappedDetail()
+}
+
+final class ResolutionCell: UITableViewCell {
     
+    // MARK: - Variables
     static let identifier = "resolutionCell"
+    weak var delegate: ResolutionCellDelegate?
     
     // MARK: - UI Components
     private lazy var containerView: UIView = {
@@ -21,7 +27,6 @@ class ResolutionCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "pfokadjfjafafasfadf"
         label.numberOfLines = 1
         label.textColor = .white
         label.backgroundColor = .clear
@@ -70,8 +75,10 @@ class ResolutionCell: UITableViewCell {
     private func configureConstraints() {
         containerView.pinToEdgesOf(view: contentView)
         
-        titleLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor,
+                                         constant: 16).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor,
+                                          constant: -16).isActive = true
         titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 56).isActive = true
         
@@ -85,7 +92,8 @@ class ResolutionCell: UITableViewCell {
     private func configureCollectionCell() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        collectionView.register(ImageCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
     }
     
 }
@@ -105,6 +113,7 @@ extension ResolutionCell: UICollectionViewDataSource, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         debugPrint(indexPath.row)
+        delegate?.didTappedDetail()
         //        self.selectedIndex = indexPath.item
         //        var categoryId: Int? = 0
         //        self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)

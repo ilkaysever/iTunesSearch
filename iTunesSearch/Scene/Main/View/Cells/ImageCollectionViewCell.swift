@@ -7,8 +7,9 @@
 
 import UIKit
 
-class ImageCollectionViewCell: UICollectionViewCell {
+final class ImageCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Variables
     static let identifier = "imageCollectionCell"
     
     // MARK: - UI Components
