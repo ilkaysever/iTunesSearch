@@ -67,9 +67,13 @@ final class DetailVC: BaseViewController {
     private func configureConstraints() {
         imgView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
                                      constant: 16).isActive = true
+        imgView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                                     constant: 16).isActive = true
+        imgView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                                     constant: -16).isActive = true
         imgView.heightAnchor.constraint(equalTo: imgView.widthAnchor,
-                                        multiplier: 3/2).isActive = true
-        imgView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+                                        multiplier: 2/3).isActive = true
+        //imgView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         titleLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
                                          constant: 16).isActive = true

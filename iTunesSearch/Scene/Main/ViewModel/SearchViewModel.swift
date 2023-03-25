@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SearchViewModelProtocol: AnyObject {
-    func fetchSearchResults()
+    func fetchSearchResults(query: String?)
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
@@ -19,12 +19,12 @@ final class SearchViewModel: SearchViewModelProtocol {
     var searchData: SearchResponseModel?
     var searchItem: [Results]?
     
-    func fetchSearchResults() {
-        SearchRequest.shared.requestiTunesSearch { [weak self] data in
+    func fetchSearchResults(query: String? = nil) {
+        SearchRequest.shared.searchRequest(query: query ?? "") { [weak self] data in
             guard let self = self else { return }
             if let data = data, let results = data.results {
                 self.searchData = data
-                self.searchItem = data.results
+                self.searchItem = results
                 self.didSuccess()
             } else {
                 self.didFailure(ErrorType.invalidData.rawValue)

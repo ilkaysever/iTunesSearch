@@ -34,20 +34,44 @@ final class MainVC: BaseViewController {
         return tableView
     }()
     
+    private let placeholderView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "search_not_found")
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .clear
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Aradığınız kriterlerde sonuç bulunamadı."
+        label.numberOfLines = 0
+        label.textColor = .white
+        label.textAlignment = .center
+        label.backgroundColor = .clear
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     // MARK: - LifeCyle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupBinding()
         configureTableView()
-        configureSearchBar()
     }
     
     // MARK: - Setup UI
     private func setupUI() {
-        view.addSubview(tableView)
-        tableView.backgroundColor = AppColors.backgroundColor
-        tableView.pinToEdgesOf(view: view)
+        addViews()
+        configureSearchBar()
+        configureConstraints()
+    }
+    
+    private func addViews() {
+        view.addSubviews(tableView, placeholderView, placeholderLabel)
     }
     
     private func configureSearchBar() {
@@ -61,6 +85,21 @@ final class MainVC: BaseViewController {
         searchBar.placeholder = "Arama"
     }
     
+    private func configureConstraints() {
+        tableView.pinToEdgesOf(view: view)
+        
+        placeholderView.heightAnchor.constraint(equalTo: placeholderView.widthAnchor, multiplier: 1/1).isActive = true
+        placeholderView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        placeholderView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -120).isActive = true
+        
+        placeholderLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor,
+                                               constant: 32).isActive = true
+        placeholderLabel.topAnchor.constraint(equalTo: placeholderView.bottomAnchor,
+                                              constant: 32).isActive = true
+        placeholderLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor,
+                                                constant: -32).isActive = true
+    }
+    
     // MARK: - Request
     private func setupBinding() {
         DispatchQueue.main.async {
@@ -68,9 +107,18 @@ final class MainVC: BaseViewController {
         }
     }
     
-    private func fetchSearchResults() {
-        viewModel.fetchSearchResults()
+    private func fetchSearchResults(query: String? = nil) {
+        viewModel.fetchSearchResults(query: query)
         viewModel.didSuccess = {
+            if self.viewModel.searchData?.resultCount ?? 0 > 0 {
+                self.tableView.isHidden = false
+                self.placeholderView.isHidden = true
+                self.placeholderLabel.isHidden = true
+            } else {
+                self.tableView.isHidden = true
+                self.placeholderView.isHidden = false
+                self.placeholderLabel.isHidden = false
+            }
             self.tableView.reloadData()
             debugPrint(self.viewModel.searchData)
         }
@@ -92,8 +140,7 @@ final class MainVC: BaseViewController {
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ResolutionCell.self,
-                           forCellReuseIdentifier: ResolutionCell.identifier)
+        tableView.register(ResolutionCell.self, forCellReuseIdentifier: ResolutionCell.identifier)
         tableView.reloadData()
     }
     
@@ -147,14 +194,14 @@ extension MainVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text else { return }
-        debugPrint(text)
+        fetchSearchResults(query: text)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         searchBar.endEditing(true)
         searchBar.text = nil
-        debugPrint(text)
+        fetchSearchResults(query: text)
     }
     
 }
