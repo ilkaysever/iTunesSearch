@@ -18,6 +18,7 @@ final class MainVC: BaseViewController {
     
     // MARK: - Variables
     var viewModel = SearchViewModel()
+    var filteredData = MockData()
     lazy var searchBar: UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width - 32, height: 0))
     
     
@@ -59,6 +60,7 @@ final class MainVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        viewModel.filteredData()
         fetchSearchResults()
         configureTableView()
     }
@@ -160,6 +162,7 @@ extension MainVC: UITableViewDataSource, UITableViewDelegate {
         cell.delegate = self
         //let model = viewModel.returnScreenShots(index: indexPath.row)
         //cell.screenShots = model
+        cell.filteredData = filteredData
         switch Section(rawValue: indexPath.section)! {
         case .lowResolution:
             cell.titleLabel.text = "Düşük Çözünürlük"
@@ -174,16 +177,8 @@ extension MainVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch Section(rawValue: indexPath.section)! {
-        case .lowResolution:
-            return 200
-        case .mediumResolution:
-            return 200
-        case .heighResolution:
-            return 200
-        case .primeResolution:
-            return 200
-        }
+        let height = UIScreen.main.bounds.height
+        return height / 4
     }
     
 }

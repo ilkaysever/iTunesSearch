@@ -5,9 +5,6 @@
 //  Created by İlkay Sever on 24.03.2023.
 //
 
-import SwiftUI
-
-
 // MARK: - SearchResponseModel
 struct SearchResponseModel: Codable {
     var resultCount: Int?
@@ -24,7 +21,7 @@ struct SearchResult: Codable {
     var trackID: Int?
     var sellerName: String?
     var fileSizeBytes: String?
-    var screenShots: [ScreenShot]? = nil
+    //var screenShots: [ScreenShot]? = nil
     
     enum CodingKeys: String, CodingKey {
         case screenshotUrls
@@ -34,11 +31,11 @@ struct SearchResult: Codable {
         case description
         case trackID = "trackId"
         case sellerName
-        case screenShots
+        //case screenShots
         case fileSizeBytes
     }
 }
 
-struct ScreenShot: Codable {
-    var imageData: Data?
-}
+//struct ScreenShot: Codable {
+//    var imageData: Data?
+//}

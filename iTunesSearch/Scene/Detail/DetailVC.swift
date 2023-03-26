@@ -14,7 +14,7 @@ final class DetailVC: BaseViewController {
     // MARK: - UI Components
     private let imgView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "image1")
+        imageView.image = UIImage(named: "images10")
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .clear
         imageView.translatesAutoresizingMaskIntoConstraints = false

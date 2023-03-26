@@ -17,6 +17,7 @@ final class ResolutionCell: UITableViewCell {
     static let identifier = "resolutionCell"
     weak var delegate: ResolutionCellDelegate?
     var screenShots: [String] = []
+    var filteredData = MockData()
     
     // MARK: - UI Components
     private lazy var containerView: UIView = {
@@ -102,46 +103,23 @@ final class ResolutionCell: UITableViewCell {
 extension ResolutionCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return filteredData.imageUrls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
-        cell.fillImageCell(screenShotURL: "IMG-924")
+        cell.fillImageCell(screenShotURL: filteredData.imageUrls[indexPath.row].imageName)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        debugPrint(indexPath.row)
         delegate?.didTappedDetail()
-        //        self.selectedIndex = indexPath.item
-        //        var categoryId: Int? = 0
-        //        self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
-        //        self.collectionView.scrollToItem(at: indexPath, at: [.centeredVertically], animated: true)
-        //        self.collectionView.reloadData()
-        //        switch selectionViewType {
-        //        case .main:
-        //            delegate?.didTappedSelectedType(typeId: selectedIndex + 1)
-        //        case .order:
-        //            delegate?.didTappedSelectedType(typeId: selectedIndex + 1)
-        //        case .brandProfile:
-        //            categoryId = brandListItem?.productCategories?[indexPath.row].id
-        //            indexDelegate?.didTapped(indexPath.item)
-        //            delegate?.didTappedSelectedType(typeId: categoryId)
-        //        case .notification:
-        //            delegate?.didTappedSelectedType(typeId: selectedIndex)
-        //        case .categoryDetail:
-        //            categoryId = productCategory?.items?[indexPath.row].id
-        //            delegate?.didTappedSelectedType(typeId: categoryId)
-        //        default:
-        //            break
-        //        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //let height = collectionView.frame.height
-        //let width = (collectionView.frame.width - 32) / 3
-        return CGSize(width: 100, height: 200)
+        let width = (UIScreen.main.bounds.width - 48) / 3
+        let height = width * 2
+        return CGSize(width: width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

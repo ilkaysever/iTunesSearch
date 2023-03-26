@@ -64,8 +64,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     func fillImageCell(screenShotURL: String?) {
-        imagesView.image = UIImage(named: screenShotURL ?? "")
-        //imagesView.setImageUrl(imageUrl: screenShotURL ?? "")
+        imagesView.setImageUrl(imageUrl: screenShotURL ?? "")
     }
     
 }
