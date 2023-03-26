@@ -16,6 +16,7 @@ final class ResolutionCell: UITableViewCell {
     // MARK: - Variables
     static let identifier = "resolutionCell"
     weak var delegate: ResolutionCellDelegate?
+    var screenShots: [String] = []
     
     // MARK: - UI Components
     private lazy var containerView: UIView = {
@@ -92,8 +93,7 @@ final class ResolutionCell: UITableViewCell {
     private func configureCollectionCell() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(ImageCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
     }
     
 }
@@ -107,7 +107,7 @@ extension ResolutionCell: UICollectionViewDataSource, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
-        cell.fillImageCell(title: "IMG-924")
+        cell.fillImageCell(screenShotURL: "IMG-924")
         return cell
     }
     

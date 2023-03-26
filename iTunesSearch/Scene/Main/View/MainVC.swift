@@ -59,19 +59,22 @@ final class MainVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupBinding()
+        fetchSearchResults()
         configureTableView()
     }
     
     // MARK: - Setup UI
     private func setupUI() {
+        tableView.isHidden = true
+        placeholderView.isHidden = true
+        placeholderLabel.isHidden = true
         addViews()
         configureSearchBar()
         configureConstraints()
     }
     
     private func addViews() {
-        view.addSubviews(tableView, placeholderView, placeholderLabel)
+        view.addSubviews(placeholderView, placeholderLabel, tableView)
     }
     
     private func configureSearchBar() {
@@ -101,12 +104,6 @@ final class MainVC: BaseViewController {
     }
     
     // MARK: - Request
-    private func setupBinding() {
-        DispatchQueue.main.async {
-            self.fetchSearchResults()
-        }
-    }
-    
     private func fetchSearchResults(query: String? = nil) {
         viewModel.fetchSearchResults(query: query)
         viewModel.didSuccess = {
@@ -120,7 +117,7 @@ final class MainVC: BaseViewController {
                 self.placeholderLabel.isHidden = false
             }
             self.tableView.reloadData()
-            debugPrint(self.viewModel.searchData)
+            //debugPrint(self.viewModel.searchData)
         }
         viewModel.didFailure = { error in
             debugPrint(error)
@@ -161,6 +158,8 @@ extension MainVC: UITableViewDataSource, UITableViewDelegate {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ResolutionCell.identifier, for: indexPath) as? ResolutionCell else { return UITableViewCell() }
         cell.delegate = self
+        //let model = viewModel.returnScreenShots(index: indexPath.row)
+        //cell.screenShots = model
         switch Section(rawValue: indexPath.section)! {
         case .lowResolution:
             cell.titleLabel.text = "Düşük Çözünürlük"
