@@ -7,18 +7,11 @@
 
 import UIKit
 
-enum Section: Int, CaseIterable {
-    case lowResolution
-    case mediumResolution
-    case heighResolution
-    case primeResolution
-}
-
 final class MainVC: BaseViewController {
     
     // MARK: - Variables
     var viewModel = SearchViewModel()
-    var filteredData = MockData()
+    //var filteredData = MockData()
     lazy var searchBar: UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width - 32, height: 0))
     
     
@@ -60,7 +53,6 @@ final class MainVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        viewModel.filteredData()
         fetchSearchResults()
         configureTableView()
     }
@@ -119,7 +111,7 @@ final class MainVC: BaseViewController {
                 self.placeholderLabel.isHidden = false
             }
             self.tableView.reloadData()
-            //debugPrint(self.viewModel.searchData)
+            debugPrint(self.viewModel.searchData)
         }
         viewModel.didFailure = { error in
             debugPrint(error)
@@ -127,8 +119,9 @@ final class MainVC: BaseViewController {
     }
     
     // MARK: - Functions
-    private func openDetailPage() {
+    private func openDetailPage(image: UIImage) {
         let vc = DetailVC()
+        vc.screenShotImage = image
         let nav = BaseNavigationController(rootViewController: vc)
         nav.modalTransitionStyle = .crossDissolve
         nav.modalPresentationStyle = .fullScreen
@@ -149,7 +142,7 @@ final class MainVC: BaseViewController {
 extension MainVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        Section.allCases.count
+        return viewModel.searchItem?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -160,19 +153,10 @@ extension MainVC: UITableViewDataSource, UITableViewDelegate {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ResolutionCell.identifier, for: indexPath) as? ResolutionCell else { return UITableViewCell() }
         cell.delegate = self
-        //let model = viewModel.returnScreenShots(index: indexPath.row)
-        //cell.screenShots = model
-        cell.filteredData = filteredData
-        switch Section(rawValue: indexPath.section)! {
-        case .lowResolution:
-            cell.titleLabel.text = "Düşük Çözünürlük"
-        case .mediumResolution:
-            cell.titleLabel.text = "Orta Çözünürlük"
-        case .heighResolution:
-            cell.titleLabel.text = "Yüksek Çözünürlük"
-        case .primeResolution:
-            cell.titleLabel.text = "Çok Yüksek Çözünürlük"
-        }
+        let sectionTitle = viewModel.searchItem?[indexPath.section].sectionTitle
+        let searchImage = viewModel.searchItem?[indexPath.section].image ?? []
+        cell.titleLabel.text = sectionTitle
+        cell.searchItem = searchImage
         return cell
     }
     
@@ -189,6 +173,7 @@ extension MainVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text else { return }
         fetchSearchResults(query: text)
+        tableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -196,13 +181,14 @@ extension MainVC: UISearchBarDelegate {
         searchBar.endEditing(true)
         searchBar.text = nil
         fetchSearchResults(query: text)
+        tableView.reloadData()
     }
     
 }
 
 // MARK: - Custom Extensions
 extension MainVC: ResolutionCellDelegate {
-    func didTappedDetail() {
-        openDetailPage()
+    func didTappedDetail(image: UIImage) {
+        openDetailPage(image: image)
     }
 }

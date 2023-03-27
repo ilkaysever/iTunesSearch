@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ResolutionCellDelegate: AnyObject {
-    func didTappedDetail()
+    func didTappedDetail(image: UIImage)
 }
 
 final class ResolutionCell: UITableViewCell {
@@ -16,8 +16,8 @@ final class ResolutionCell: UITableViewCell {
     // MARK: - Variables
     static let identifier = "resolutionCell"
     weak var delegate: ResolutionCellDelegate?
-    var screenShots: [String] = []
-    var filteredData = MockData()
+    //var filteredData = MockData()
+    var searchItem: [UIImage] = []
     
     // MARK: - UI Components
     private lazy var containerView: UIView = {
@@ -103,17 +103,17 @@ final class ResolutionCell: UITableViewCell {
 extension ResolutionCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredData.imageUrls.count
+        return searchItem.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else { return UICollectionViewCell() }
-        cell.fillImageCell(screenShotURL: filteredData.imageUrls[indexPath.row].imageName)
+        cell.fillImageCell(searchItem[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didTappedDetail()
+        delegate?.didTappedDetail(image: searchItem[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -63,8 +63,8 @@ final class ImageCollectionViewCell: UICollectionViewCell {
         imagesView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
-    func fillImageCell(screenShotURL: String?) {
-        imagesView.setImageUrl(imageUrl: screenShotURL ?? "")
+    func fillImageCell(_ image: UIImage) {
+        imagesView.image = image
     }
     
 }

@@ -9,8 +9,8 @@ import UIKit
 import Kingfisher
 
 final class Downloader {
-    private var group: DispatchGroup
     
+    private var group: DispatchGroup
     
     init() {
         group = DispatchGroup()
@@ -18,11 +18,14 @@ final class Downloader {
     
     func retrieve(_ list: [String], completion: @escaping ([SearchedImage]) -> Void) {
         var imageList: [SearchedImage] = []
+        list.forEach { element in
+            imageList.append(SearchedImage(image: nil, size: 0))
+        }
         list.enumerated().forEach { index, url in
             if let url = URL(string: url) {
                 group.enter()
                 KingfisherManager.shared.retrieveImage(with: url) { receivedSize, totalSize in
-                    imageList.append(SearchedImage(image: UIImage(), size: Int(totalSize) / 1024))
+                    imageList[index].size = (Int(totalSize) / 1024)
                 } downloadTaskUpdated: { newTask in } completionHandler: { response in
                     switch response {
                     case .success(let result):
@@ -39,28 +42,27 @@ final class Downloader {
             completion(imageList)
         }
     }
-     
-     @discardableResult func convertByteToKiloBytes(byte: Int?) -> Int {
-         guard let byte = byte else { return 0 }
-         let kBytes = byte / 1024
-         
-         switch kBytes {
-         case 0...100:
-             debugPrint("Düşük Çözünürlük" + " - " + "\(kBytes)_kilobytes")
-         case 100...250:
-             debugPrint("Orta Çözünürlük" + " " + "\(kBytes)_kilobytes")
-         case 250...500:
-             debugPrint("Yüksek Çözünürlük" + " " + "\(kBytes)_kilobytes")
-         default:
-             debugPrint("Çok Yüksek Çözünürlük" + " " + "\(kBytes)_kilobytes")
-         }
-         
-         return kBytes
-     }
     
 }
 
 struct SearchedImage {
-    var image: UIImage
+    var image: UIImage?
     var size: Int
+}
+
+struct CategorizedImage {
+    var image: [UIImage]
+    var sectionTitle: String {
+        switch section {
+        case 0:
+            return "Düşük Çözünürlük"
+        case 1:
+            return "Orta Çözünürlük"
+        case 2:
+            return "Yüksek Çözünürlük"
+        default:
+            return "Çok Yüksek Çözünürlük"
+        }
+    }
+    let section: Int
 }
